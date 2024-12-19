@@ -22,7 +22,7 @@ This is a Quiz App built using Java Spring Boot for backend development, Hiberna
 
 ## Usage
 
-+ **Setup MySQL Database:** Set up MySQL and create two databases: questionsdb and quizdb.
++ **Setup MySQL Database:** Set up MySQL and create two databases: questionsdb(for testing use questionsEx.csv file attched in Quiz-App folder) and quizdb.
 + **Run the Application:** Run the Java Spring Boot application to start the backend server.
 + **Admin Operations:** Use Postman or any REST client to interact with the backend APIs for question management and quiz creation.
 + **User Operations:** Users can attempt quizzes by following the link provided by the admin. Upon completion, users receive their scores
