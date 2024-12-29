@@ -1,6 +1,6 @@
 # QUIZ APP
 
-This is a Quiz App built using Java Spring Boot for backend development, Hibernate for database interaction, and MySQL as the database. The app allows an admin to manage questions and create quizzes for users to attempt.
+This is a Quiz App built using Java Spring Boot for backend development, JPA for database interaction, and MySQL as the database. The app allows an admin to manage questions and create quizzes for users to attempt.
 
 ## Features
 
