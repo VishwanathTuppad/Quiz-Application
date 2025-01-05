@@ -17,10 +17,13 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
+    // Create quiz with quiz title, category, num of questions(Quiz unique ID automatically assigned)
     @PostMapping("create")
     public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto){
         return quizService.createQuiz(quizDto.getCategoryName(), quizDto.getNumQuestions(), quizDto.getTitle());
     }
+
+    //Get Quiz by unique ID
     @GetMapping("get/{id}")
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id){
         return quizService.getQuizQuestions(id);
@@ -30,6 +33,4 @@ public class QuizController {
     public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
         return quizService.calculateResult(id, responses);
     }
-
-
 }

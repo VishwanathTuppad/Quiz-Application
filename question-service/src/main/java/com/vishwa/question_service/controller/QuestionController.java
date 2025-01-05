@@ -24,9 +24,7 @@ public class QuestionController {
 
     @GetMapping("allQuestions")
     public ResponseEntity<List<Question>> getAllQuestions(){
-        //return questionService.getAllQuestions();
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
-
     }
 
     @GetMapping("category/{category}")

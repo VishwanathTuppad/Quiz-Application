@@ -46,7 +46,6 @@ public class QuestionService {
     public ResponseEntity<List<Integer>> getQuestionsForQuiz(String categoryName, Integer numQuestions) {
         List<Integer> questions = questionDao.findRandomQuestionsByCategory(categoryName);
 
-        //List<Integer> questions = repository.findRandomQuestionsByCategory(category);
         List<Integer> res= questions.stream().limit(numQuestions).collect(Collectors.toList());
 
         return new ResponseEntity<>(res, HttpStatus.OK);
@@ -71,7 +70,6 @@ public class QuestionService {
             wrapper.setOption4(question.getOption4());
             wrappers.add(wrapper);
         }
-
         return new ResponseEntity<>(wrappers, HttpStatus.OK);
     }
 
