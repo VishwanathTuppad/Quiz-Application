@@ -29,30 +29,35 @@ public class QuestionController {
 
     @GetMapping("category/{category}")
     public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
-        return questionService.getQuestionsByCategory(category);
+           List<Question> questionsByCategory = questionService.getQuestionsByCategory(category);
+           return new ResponseEntity<>(questionsByCategory, HttpStatus.OK);
+
     }
 
     @PostMapping("add")
     public ResponseEntity<String> addQuestion(@RequestBody Question question){
-        return  questionService.addQuestion(question);
+        questionService.addQuestion(question);
+        return new ResponseEntity<>("Question added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("generate")
     public ResponseEntity<List<Integer>> getQuestionsForQuiz
             (@RequestParam String categoryName, @RequestParam Integer numQuestions ){
-        return questionService.getQuestionsForQuiz(categoryName, numQuestions);
+        List<Integer> selectedQuestionNums= questionService.getQuestionsForQuiz(categoryName, numQuestions);
+        return new ResponseEntity<>(selectedQuestionNums, HttpStatus.OK);
     }
 
     @PostMapping("getQuestions")
     public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questionIds){
         System.out.println(environment.getProperty("local.server.port"));
-        return questionService.getQuestionsFromId(questionIds);
+        List<QuestionWrapper> getQuestionsByNum= questionService.getQuestionsFromId(questionIds);
+        return new ResponseEntity<>(getQuestionsByNum, HttpStatus.OK);
     }
 
     @PostMapping("getScore")
     public ResponseEntity<Integer> getScore(@RequestBody List<Response> responses)
     {
-        return questionService.getScore(responses);
+        Integer score= questionService.getScore(responses);
+        return new ResponseEntity<>(score, HttpStatus.OK);
     }
-
 }

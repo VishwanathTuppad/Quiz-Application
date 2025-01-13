@@ -1,17 +1,16 @@
 package com.vishwa.question_service.service;
 
 import com.vishwa.question_service.dao.QuestionDao;
+import com.vishwa.question_service.exception.NoQuestionFound;
+import com.vishwa.question_service.exception.NoQuestionsFoundWithCategory;
 import com.vishwa.question_service.model.Question;
 import com.vishwa.question_service.model.QuestionWrapper;
 import com.vishwa.question_service.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -19,45 +18,40 @@ public class QuestionService {
     QuestionDao questionDao;
 
     public List<Question> getAllQuestions() {
-        List<Question> res = null;
+        List<Question> allQuestions = null;
         try {
-            res = questionDao.findAll();
+            allQuestions = questionDao.findAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
+        return allQuestions;
     }
 
-    public ResponseEntity<List<Question>> getQuestionsByCategory(String category) {
-        try {
-            return new ResponseEntity<>(questionDao.findByCategory(category), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public List<Question> getQuestionsByCategory(String category) {
+        List<Question> questionsByCategory = questionDao.findByCategory(category);
+        if (questionsByCategory.isEmpty()) {
+            throw new NoQuestionsFoundWithCategory("No questions found for category :" + category);
+        } else {
+            return questionsByCategory;
         }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-
     }
 
-    public ResponseEntity<String> addQuestion(Question question) {
+    public void addQuestion(Question question) {
         questionDao.save(question);
-        return new ResponseEntity<>("success", HttpStatus.CREATED);
     }
 
-    public ResponseEntity<List<Integer>> getQuestionsForQuiz(String categoryName, Integer numQuestions) {
-        List<Integer> questions = questionDao.findRandomQuestionsByCategory(categoryName);
-
-        List<Integer> res= questions.stream().limit(numQuestions).collect(Collectors.toList());
-
-        return new ResponseEntity<>(res, HttpStatus.OK);
+    public List<Integer> getQuestionsForQuiz(String categoryName, Integer numQuestions) {
+        List<Integer> selectedQuestionNums = questionDao.findRandomQuestionsByCategory(categoryName, numQuestions);
+        return selectedQuestionNums;
     }
 
-
-    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(List<Integer> questionIds) {
+    public List<QuestionWrapper> getQuestionsFromId(List<Integer> questionIds) {
         List<QuestionWrapper> wrappers = new ArrayList<>();
         List<Question> questions = new ArrayList<>();
 
         for (Integer id : questionIds) {
-            questions.add(questionDao.findById(id).get());
+            questions.add(questionDao.findById(id)
+                    .orElseThrow(() -> new NoQuestionFound("No question found for id :" + id)));
         }
 
         for (Question question : questions) {
@@ -70,16 +64,17 @@ public class QuestionService {
             wrapper.setOption4(question.getOption4());
             wrappers.add(wrapper);
         }
-        return new ResponseEntity<>(wrappers, HttpStatus.OK);
+        return wrappers;
     }
 
-    public ResponseEntity<Integer> getScore(List<Response> responses) {
+    public Integer getScore(List<Response> responses) {
         int right = 0;
         for (Response response : responses) {
-            Question question = questionDao.findById(response.getId()).get();
+            Question question = questionDao.findById(response.getId())
+                    .orElseThrow(() -> new NoQuestionFound("No question found for id :" + response.getId()));
             if (response.getResponse().equals(question.getRightAnswer()))
                 right++;
         }
-        return new ResponseEntity<>(right, HttpStatus.OK);
+        return right;
     }
 }
