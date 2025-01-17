@@ -4,8 +4,8 @@ import com.vishwa.question_service.dao.QuestionDao;
 import com.vishwa.question_service.exception.NoQuestionFound;
 import com.vishwa.question_service.exception.NoQuestionsFoundWithCategory;
 import com.vishwa.question_service.model.Question;
-import com.vishwa.question_service.model.QuestionWrapper;
-import com.vishwa.question_service.model.Response;
+import com.vishwa.question_service.utility.QuestionWrapper;
+import com.vishwa.question_service.utility.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
