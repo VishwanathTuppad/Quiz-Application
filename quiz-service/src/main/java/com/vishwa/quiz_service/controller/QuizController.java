@@ -1,8 +1,8 @@
 package com.vishwa.quiz_service.controller;
 
-import com.vishwa.quiz_service.model.QuestionWrapper;
-import com.vishwa.quiz_service.model.QuizDto;
-import com.vishwa.quiz_service.model.Response;
+import com.vishwa.quiz_service.utility.QuestionWrapper;
+import com.vishwa.quiz_service.utility.QuizDto;
+import com.vishwa.quiz_service.utility.Response;
 import com.vishwa.quiz_service.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

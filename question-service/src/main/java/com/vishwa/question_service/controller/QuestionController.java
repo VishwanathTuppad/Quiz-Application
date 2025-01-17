@@ -1,8 +1,8 @@
 package com.vishwa.question_service.controller;
 
 import com.vishwa.question_service.model.Question;
-import com.vishwa.question_service.model.QuestionWrapper;
-import com.vishwa.question_service.model.Response;
+import com.vishwa.question_service.utility.QuestionWrapper;
+import com.vishwa.question_service.utility.Response;
 import com.vishwa.question_service.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

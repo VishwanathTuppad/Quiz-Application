@@ -1,8 +1,8 @@
 package com.vishwa.quiz_service.feign;
 
 
-import com.vishwa.quiz_service.model.QuestionWrapper;
-import com.vishwa.quiz_service.model.Response;
+import com.vishwa.quiz_service.utility.QuestionWrapper;
+import com.vishwa.quiz_service.utility.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

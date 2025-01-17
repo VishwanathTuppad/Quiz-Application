@@ -3,9 +3,9 @@ package com.vishwa.quiz_service.service;
 
 import com.vishwa.quiz_service.dao.QuizDao;
 import com.vishwa.quiz_service.feign.QuizInterface;
-import com.vishwa.quiz_service.model.QuestionWrapper;
+import com.vishwa.quiz_service.utility.QuestionWrapper;
 import com.vishwa.quiz_service.model.Quiz;
-import com.vishwa.quiz_service.model.Response;
+import com.vishwa.quiz_service.utility.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
